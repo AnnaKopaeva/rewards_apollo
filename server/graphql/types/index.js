@@ -1,21 +1,26 @@
-const userFields = `
-  name: String,
-  username: String,
-  email: String,
-`
-
 const rewardFields = `
   time: String,
   message: String,
   rewardCount: String,
   rewardCurrency: String,
-`
-// user: Partial<UserEntity>;
-// userBy: Partial<UserEntity>;
+  startDate: String,
+  endDate: String,
+`;
 
 exports.rewardTypes = `
   type Reward {
     _id: ID,
     ${rewardFields}
   }
-`
+`;
+
+exports.userTypes = `
+  type User {
+    _id: ID
+    avatar: String
+    username: String
+    name: String
+    email: String
+    role: String
+  }
+`;

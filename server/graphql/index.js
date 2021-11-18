@@ -1,16 +1,17 @@
-const { ApolloServer, gql } = require('apollo-server-express');
+const { ApolloServer, gql } = require("apollo-server-express");
 
-const { rewardTypes } = require('./types');
-const { rewardsQuery, rewardsMutations } = require('./resolvers');
+const { rewardTypes } = require("./types");
+const { rewardsQuery, rewardsMutations } = require("./resolvers");
 
 exports.createApolloServer = () => {
-  const typeDefs = gql`   
+  const typeDefs = gql`
     ${rewardTypes}
- 
+
     type Query {
-     rewards: [Reward]
+      rewards: [Reward]
+      myRewards: [Reward]
     }
-    
+
     type Mutation {
       hello: String
     }
@@ -22,7 +23,7 @@ exports.createApolloServer = () => {
     },
     Mutation: {
       ...rewardsMutations,
-    }
+    },
   };
 
   const apolloServer = new ApolloServer({
@@ -31,4 +32,4 @@ exports.createApolloServer = () => {
   });
 
   return apolloServer;
-}
+};

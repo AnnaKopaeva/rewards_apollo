@@ -1,7 +1,11 @@
-const express = require('express')
+const express = require("express");
+
+// Connect to DB
+const db = require("./database");
+db.connect();
 
 async function startApolloServer(typeDefs, resolvers) {
-  const server = require('./graphql').createApolloServer();
+  const server = require("./graphql").createApolloServer();
 
   await server.start();
 
@@ -9,12 +13,12 @@ async function startApolloServer(typeDefs, resolvers) {
 
   server.applyMiddleware({
     app,
-    path: '/'
+    path: "/",
   });
 
   // Modified server startup
-  await new Promise(resolve => app.listen({ port: 4000 }, resolve));
+  await new Promise((resolve) => app.listen({ port: 4000 }, resolve));
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }
 
-startApolloServer()
+startApolloServer();
