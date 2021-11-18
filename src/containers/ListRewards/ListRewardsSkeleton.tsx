@@ -5,13 +5,13 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
 import Avatar from "../../components/Avatar";
-import rewards from "../../mockedData/rewards";
 
 import styles from "./ListRewards.styles";
 
+// TODO: add data
 const ListRewardsSkeleton: React.FC = () => (
   <Box>
-    {rewards.map((item) => (
+    {[].map((item) => (
       <Box key={item.id} sx={styles.rewardItem}>
         <Skeleton variant="circular" height={40}>
           <Avatar />
