@@ -1,7 +1,12 @@
+const mongoose = require("mongoose");
 const { ApolloServer, gql } = require("apollo-server-express");
 
 const { rewardTypes } = require("./types");
 const { rewardsQuery, rewardsMutations } = require("./resolvers");
+
+// Graph Models
+const Rewards = require("./models/rewards");
+const User = require("./models/user");
 
 exports.createApolloServer = () => {
   const typeDefs = gql`
@@ -9,11 +14,12 @@ exports.createApolloServer = () => {
 
     type Query {
       rewards: [Reward]
-      myRewards: [Reward]
+      rewardById(id: String): Reward
     }
 
     type Mutation {
-      hello: String
+      createReward(input: RewardInput): Reward
+      updateReward(id: String, input: RewardInput): Reward
     }
   `;
 
@@ -29,6 +35,12 @@ exports.createApolloServer = () => {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
+    context: () => ({
+      models: {
+        User: new User(mongoose.model("User")),
+        Rewards: new Rewards(mongoose.model("Rewards")),
+      },
+    }),
   });
 
   return apolloServer;

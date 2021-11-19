@@ -8,7 +8,7 @@ import { Add } from "@mui/icons-material";
 import Tabs from "../../components/TabComponent/Tabs";
 import Tab from "../../components/TabComponent/Tab";
 
-import { GET_REWARDS, GET_MY_REWARDS } from "../../apollo/queries";
+import { GET_REWARDS, GET_REWARD_BY_ID } from "../../apollo/queries";
 
 import ListRewards from "../ListRewards";
 
@@ -20,12 +20,14 @@ const Feed: React.FC = () => {
   const { open, handleOpenModal, handleCloseModal } = useToggleModal();
 
   const { data } = useQuery(GET_REWARDS);
-  const { data: myData } = useQuery(GET_MY_REWARDS);
+  const { data: dataById } = useQuery(GET_REWARD_BY_ID, {
+    variables: { id: "6196691c34c4981dd43cdad7" },
+  });
 
   const allRewards = (data && data.rewards) || [];
-  const myRewards = (myData && myData.myRewards) || [];
+  const rewardById = (dataById && dataById.rewardById) || [];
 
-  console.log(allRewards, "myRewards", myRewards);
+  console.log(allRewards, "rewardById", rewardById);
 
   return (
     <Box sx={styles.feed}>
@@ -34,7 +36,7 @@ const Feed: React.FC = () => {
           <ListRewards data={allRewards} />
         </Tab>
         <Tab label="My Rewards">
-          <ListRewards data={myRewards} />
+          <ListRewards data={[rewardById]} />
         </Tab>
       </Tabs>
       <Button sx={styles.addBtn} onClick={handleOpenModal}>

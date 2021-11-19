@@ -23,7 +23,7 @@ const ListRewardsBox: React.FC<ListRewardsProps> = ({ data }) => {
     <>
       {data.length ? (
         data.map((reward) => (
-          <Box key={reward.id} sx={styles.rewardItem}>
+          <Box key={reward._id} sx={styles.rewardItem}>
             <Avatar />
             <Box sx={styles.rewardDetails}>
               <Typography gutterBottom variant="caption">
@@ -35,7 +35,7 @@ const ListRewardsBox: React.FC<ListRewardsProps> = ({ data }) => {
                 color="text.secondary"
                 sx={styles.rewardTime}
               >
-                {dayjs.unix(reward.time).fromNow()}
+                {dayjs.unix(reward.createAt).fromNow()}
               </Typography>
               <Typography variant="caption" color="text.secondary" sx={styles.rewardMessage}>
                 {reward.message}

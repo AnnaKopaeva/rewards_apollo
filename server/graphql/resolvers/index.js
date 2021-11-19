@@ -1,17 +1,17 @@
-const data = require("../../fakeDb/data");
-
 exports.rewardsQuery = {
-  rewards: (parent, args, context) => {
-    return data.rewards;
-  },
-  myRewards: (parent, args, context) => {
-    const mockedId = 1;
-    return data.rewards.filter((r) => r._id === mockedId);
+  rewards: (parent, args, context) => context.models.Rewards.getAll({}),
+  rewardById: (parent, { id }, context) => {
+    return context.models.Rewards.getById(id);
   },
 };
 
 exports.rewardsMutations = {
-  hello: (parent, args, context) => {
-    return "Hello";
+  createReward: async (parent, { input }, context) => {
+    const createReward = await context.models.Rewards.create(input);
+    return createReward;
+  },
+  updateReward: async (parent, { id, input }, context) => {
+    const updateReward = await context.models.Rewards.findAndUpdate(id, input);
+    return updateReward;
   },
 };

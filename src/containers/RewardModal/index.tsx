@@ -13,6 +13,7 @@ import { RewardSchema } from "./validation";
 import { selectUsersData } from "../../store/users/selectors";
 import { RewardEntity } from "../../interfaces/RewardEntity";
 import useRewardModal from "./useRewardModal";
+import { useCreateReward } from "../../apollo/actions";
 
 import styles from "./RewardModal.styles";
 
@@ -24,10 +25,11 @@ interface RewardModalProps {
 const RewardModal: React.FC<RewardModalProps> = ({ open, onClose }) => {
   const users = useSelector(selectUsersData);
 
-  const { initialReward, onSubmit } = useRewardModal();
+  const { initialReward } = useRewardModal();
+  const [createReward] = useCreateReward();
 
-  const handleFormSubmit = (values: RewardEntity) => {
-    onSubmit(values);
+  const handleFormSubmit = async (data: RewardEntity) => {
+    await createReward({ variables: data });
     onClose();
   };
 

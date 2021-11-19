@@ -1,15 +1,17 @@
 const rewardFields = `
-  time: String,
   message: String,
-  rewardCount: String,
+  rewardCount: Int,
   rewardCurrency: String,
-  startDate: String,
-  endDate: String,
+  createAt: String,
 `;
 
 exports.rewardTypes = `
   type Reward {
     _id: ID,
+    ${rewardFields}
+  }
+  
+  input RewardInput {
     ${rewardFields}
   }
 `;
