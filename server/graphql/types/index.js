@@ -25,4 +25,13 @@ exports.userTypes = `
     email: String
     role: String
   }
+  
+  input SignUpInput {
+    avatar: String
+    username: String!
+    name: String
+    email: String!
+    password: String!
+    passwordConfirmation: String!
+  }
 `;

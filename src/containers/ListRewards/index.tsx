@@ -11,14 +11,15 @@ import styles from "./ListRewards.styles";
 
 interface ListRewardsProps {
   data: RewardEntity[];
+  isEditing?: boolean;
 }
 
-const ListRewards: React.FC<ListRewardsProps> = ({ data }) => {
+const ListRewards: React.FC<ListRewardsProps> = ({ data, isEditing }) => {
   const isLoading = false;
 
   return (
     <Grid container wrap="nowrap" sx={styles.rewards}>
-      {isLoading ? <ListRewardsSkeleton /> : <ListRewardsBox data={data} />}
+      {isLoading ? <ListRewardsSkeleton /> : <ListRewardsBox data={data} isEditing={isEditing} />}
     </Grid>
   );
 };

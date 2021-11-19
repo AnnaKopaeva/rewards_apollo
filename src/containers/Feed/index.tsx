@@ -36,7 +36,7 @@ const Feed: React.FC = () => {
           <ListRewards data={allRewards} />
         </Tab>
         <Tab label="My Rewards">
-          <ListRewards data={[rewardById]} />
+          <ListRewards isEditing data={[rewardById]} />
         </Tab>
       </Tabs>
       <Button sx={styles.addBtn} onClick={handleOpenModal}>
