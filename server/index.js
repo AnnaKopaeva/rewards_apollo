@@ -11,6 +11,8 @@ async function startApolloServer(typeDefs, resolvers) {
 
   const app = express();
 
+  require("./middlewares").init(app, db);
+
   server.applyMiddleware({
     app,
     path: "/",

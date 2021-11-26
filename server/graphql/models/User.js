@@ -3,18 +3,29 @@ class User {
     this.Model = model;
   }
 
-  signIn() {
-    return "Sign In";
+  async signIn(signInData, ctx) {
+    try {
+      const user = await ctx.authenticate(signInData);
+      return user;
+    } catch (error) {
+      return error;
+    }
   }
+
   signUp(signUpData) {
-    console.log(signUpData);
     if (signUpData.password !== signUpData.passwordConfirmation) {
       throw new Error("The password must be the same as confirmation password!");
     }
     return this.Model.create(signUpData);
   }
-  signOut() {
-    return "Sign out";
+
+  signOut(ctx) {
+    try {
+      ctx.logout();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
 

@@ -3,6 +3,8 @@ const { ApolloServer, gql } = require("apollo-server-express");
 
 const { rewardTypes, userTypes } = require("./types");
 const { rewardsQuery, rewardsMutations, userMutations } = require("./resolvers");
+const { buildAuthContext } = require("./context");
+const { ApolloServerPluginLandingPageGraphQLPlayground } = require("apollo-server-core");
 
 // Graph Models
 const Rewards = require("./models/rewards");
@@ -23,8 +25,8 @@ exports.createApolloServer = () => {
       updateReward(id: String, input: RewardInput): Reward
 
       signUp(input: SignUpInput): String
-      signIn: String
-      signOut: String
+      signIn(input: SignInInput): User
+      signOut: Boolean
     }
   `;
 
@@ -41,7 +43,9 @@ exports.createApolloServer = () => {
   const apolloServer = new ApolloServer({
     typeDefs,
     resolvers,
-    context: () => ({
+    plugins: [ApolloServerPluginLandingPageGraphQLPlayground({})],
+    context: ({ req }) => ({
+      ...buildAuthContext(req),
       models: {
         User: new User(mongoose.model("User")),
         Rewards: new Rewards(mongoose.model("Rewards")),
